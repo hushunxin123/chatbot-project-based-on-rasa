@@ -1,0 +1,291 @@
+version: '3.1'
+
+intents:
+- affirm
+- bot_challenge
+- deny
+- goodbye
+- request_lost_my_sim
+- greet
+- inform
+- mood_great
+- mood_unhappy
+- need_human_support
+- my_order
+- mobile_package
+- order_details
+- utter_mobile_package
+- tell_me_a_joke
+- out_of_scope
+- welcome
+
+
+entities:
+- order_number
+- choice
+
+slots:
+  help_choice:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: name_form
+           requested_slot: help_choice
+  email:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: email_form
+           requested_slot: email
+  call_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: callnumber_form
+           requested_slot: call_number
+  phone_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: phone_form
+           requested_slot: phone_number
+  sim_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: phone_form
+           requested_slot: sim_number
+  order_number:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: order_number
+  order_id:
+    type: text
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: order_id
+  choise:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_text
+        conditions:
+         - active_loop: question_form
+           requested_slot: choise
+  
+
+forms:
+  simple_order_form:
+    required_slots:
+    - order_number
+  name_form:
+    required_slots:
+      - help_choice
+  callnumber_form:
+    required_slots:
+      - call_number
+  email_form:
+    required_slots:
+      - email
+  question_form:
+    required_slots:
+      - choise
+  phone_form:
+    required_slots:
+      - phone_number
+      - sim_number
+
+
+actions:
+- action_default_question
+- action_reset_order_number
+- utter_ask_phone_number 
+- utter_ask_sim_number
+- utter_greet
+- utter_goodbye
+- utter_give_options
+- utter_order_valid
+- utter_opening_hours
+- utter_your_store
+- utter_store_address
+- utter_4g_mobilepackage
+- utter_5g_mobilepackage
+- question_1
+- question_2
+- question_3
+- utter_end_manager
+- utter_ask_choice_3
+- utter_phone_submit
+- utter_slots_values
+- validate_phone_form
+- utter_askservice
+- utter_anything_else
+- query_order_details
+- utter_ask_order_number
+- action_help_question
+- utter_ask_choice_help
+- validate_name_form
+- validate_question_form
+- utter_slots_email_values
+- validate_email_form
+- utter_end_stories
+- utter_ask_help
+- utter_end_email
+- validate_simple_order_form
+- utter_human_support
+- utter_end_help_call_end
+- validate_callnumber_form
+- action_default_fallback
+- action_default_ask_affirmation
+
+
+responses:
+  utter_greet:
+  - text: Hey, there. What would you like to bother me with?
+  - text: What now?
+  utter_goodbye:
+  - text: I look forward to serving you again next time. Wish you A happy life
+  - text: Ok, you can comment and give me feedback on my service afterwards. I look forward to serving you again next time. Wish you A happy life.
+  utter_askservice:
+  - text: |-
+      Hello, what kind of service do you need? FAQ:
+      1. Offline business hall information inquiry. 
+      2. Mobile package for consultation.
+      3. Report the loss of SIM card.
+      4. Complaint and help.
+  utter_ask_choice_help:
+  - text: |-
+      If your problem is not solved, do you need the following services:
+      1. Consult manual customer service
+      2, Email your detailed requirements to us
+      3. Talk to a senior executive
+  utter_ask_help:
+  - text: |-
+      what else can I help you?
+  utter_human_support:
+  - text: |-
+      Ok, manual customer service: Suzy, we are on the line with you....
+  utter_end_stories:
+  - text: |-
+      I look forward to serving you again next time. Wish you A happy life.
+  utter_end_email:
+  - text: |-
+      Ok, please send your detailed requirements to the email: alwaysmobile@support.com, we will reply to you in time, thank you.
+  utter_end_help_call_end:
+  - text: |-
+      Ok, the senior executive will call you back.
+  utter_opening_hours:
+  - text: The operating hours of the telecom store are from 9 AM to 5 PM.
+  utter_store_address:
+  - text: The telecom store is located at 345 Main Street, Australia.
+  utter_phone_submit:
+  - text: Thank you for your information, please wait a moment and I will block the number for you. In the meantime, your number cannot be used by others. In the meantime, it is recommended that you lose your cellular device to ensure the security of your account. 
+  utter_slots_values:
+  - text: I will remember that your number is {phone_number} and {sim_number}!
+  utter_slots_email_values:
+  - text: I will remember that your email is {email}!
+  utter_slots_callnumber_values:
+  - text: |
+      I will remember that your call_number is {call_number},
+      Ok, the senior executive will call you back !
+  utter_welcome:
+  - text: Ok, you can comment and give me feedback on my service afterwards. I look forward to serving you again next time. Wish you A happy life
+  utter_your_store:
+  - text: To get to the Telco shop, you can take bus No. 30 to Main Street and walk along West, it's on your left.
+  utter_give_options:
+  - text: |
+      Hello. Is there anything I can help you with? 
+       	 1. Offline business hall information inquiry. 
+       	 2. Mobile package for consultation.
+       	 3. Report the loss of SIM card.
+         4. Complaint and help.
+       So, what is it going to be? 
+  utter_joke:
+  - text: 'Here is a joke for you: Look in the mirror '
+    image: https://media.giphy.com/media/BFYLNwlsSNtcc/giphy.gif?cid=ecf05e47tl1wa16rrmdk4hlqhc84h5mfjsu8bn8a77q7t0g9&rid=giphy.gif&ct=g
+  utter_anything_else:
+  - text: What else can I do for you, Your Highness?
+  utter_order_valid:
+  - text: I'm impressed!!! Good job at providing the right-length order number!
+  utter_mobile_package:
+  - text: Mobile package for consultation
+  utter_track_order: 
+  - text: Would you take the trouble of providing me your order number?
+  utter_ask_order_number:
+  - text: Would you take the trouble of providing me your order number? 123123
+  utter_ask_phone_number:
+  - text: What is your phone number?
+  utter_ask_sim_number:
+  - text: What is your sim number?
+  utter_ask_call_number:
+  - text: Ok, please give me your phone number?
+  utter_ask_email:
+  - text: What is input you email?
+  utter_ask_question_1:
+  - text: |-
+      please type the Offline business hall information question? example: What are your store opening hours?
+  utter_ask_choice_2:
+  - text: |-
+      please type the type 4g or 5g to look the information about mobile package?
+  utter_ask_choice_3:
+  - text: |-
+      type you sim question to Report the loss of SIM card?
+  utter_ask_sim_1:
+  - text: |-
+       I'm sorry to hear that you've lost your sim card, I can help you with this. Please provide us with the relevant details, such as your cell phone number and card number, 
+       so that we can deal with it.
+       please input you phone number and card number.
+  utter_iamabot:
+  - text: yes i am a robot .
+  utter_5g_mobilepackage:
+    - text: |-
+        Dear users, thank you for your interest in 5G packages! Due to the limited operational infrastructure, we have only one individual 5G package available to you for the time being:
+          Package includes domestic data 100GB, more than £0.5 /GB charge;
+          The package includes 500 minutes of domestic calls and charges £0.5 per minute after that;
+          The monthly fee is £15.
+          Enterprise Sharing Version A: 
+          Provides shared use of up to 40 users, which can support the communication needs of the company;
+          Provide unlimited intra-enterprise call and SMS services nationwide;
+          Provide free WiFi service between employees within the company. The monthly fee is £50
+          In order to facilitate your use, we provide two payment methods: advance payment and later payment. An advance payment is a fee paid prior to purchase and can be used to offset the monthly rent or other related expenses. Post-payment refers to the payment that starts the next month after the purchase, and you can choose the payment method that suits you at the time of purchase.
+          I hope the above information can help you!
+  utter_4g_mobilepackage:
+    - text: |-
+        Dear users, thank you for your interest in 4G packages! 4G package options are very rich, please check out:
+          4G Package A:
+            Package includes domestic data 60GB, more than £0.5 /GB charge;
+            The package includes 300 minutes of domestic calls and charges £0.5 per minute after that;
+            The monthly rent is £10.
+          4G Package B:
+            Package includes domestic data 50GB, more than £0.5 /GB charge;
+            The package includes 100 minutes of domestic calls, which will be charged at £0.5 per minute;
+            The monthly fee is £8.
+          Enterprise customized version:
+            Provides up to 50 users to support the company's communication needs;
+            Provide unlimited intra-enterprise call and SMS services nationwide;
+            Provide free WiFi service between employees within the company.
+          In order to facilitate your use, we provide two payment methods: advance payment and later payment. 
+  # utter_out_of_scope:
+  # - text: Sorry, I don't speak your language. Try again.
+  # utter_please_rephrase:
+  # - text: Sorry, no understand. Rephrase so that even a 5 year old can understand.
+  utter_default:
+  - text: Sorry, there is no matching information for this issue. Adjust the question and re-enter the keyword.
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

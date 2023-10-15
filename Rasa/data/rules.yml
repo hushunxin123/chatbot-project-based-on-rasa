@@ -1,0 +1,97 @@
+version: "3.1"
+
+rules:
+- rule: Say goodbye anytime the user says 'No' to anything_else utterance
+  steps:
+  - intent: deny
+  - action: utter_goodbye
+- rule: Bot challenge
+  steps:
+    - intent: bot_challenge
+    - action: utter_iamabot
+- rule: Single stage fallback | ask user what they meant
+  steps:
+  - intent: nlu_fallback
+  - action: action_default_ask_affirmation
+- rule: Single stage fallback | call default fallback if user is not OK with the given options
+  steps:
+  - action: action_default_ask_affirmation
+  - intent: out_of_scope
+  - action: action_default_fallback
+- rule: ask first question
+  steps:
+  - intent: greet
+  - action: utter_askservice
+  - action: question_form
+  - active_loop: question_form
+  - slot_was_set:
+    - requested_slot: choise
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: action_default_question
+  - active_loop: action_default_question
+- rule: about question_1
+  steps:
+  - intent: question_1
+  - action: utter_opening_hours
+- rule: about question_2
+  steps:
+  - intent: question_2
+  - action: utter_store_address
+- rule: about question_3
+  steps:
+  - intent: question_3
+  - action: utter_your_store
+- rule: about 4g_mobilepackage
+  steps:
+  - intent: 4g_mobilepackage
+  - action: utter_4g_mobilepackage
+- rule: about 5g_mobilepackage
+  steps:
+  - intent: 5g_mobilepackage
+  - action: utter_5g_mobilepackage
+- rule: about_request_email
+  steps:
+  - intent: request_email
+  - action: utter_end_email
+- rule: Submit question form
+  condition:
+  - active_loop: question_form
+  steps:
+  - action: question_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_default_question
+  - active_loop: action_default_question
+- rule: Activate form
+  steps:
+  - intent: request_help
+  - action: utter_ask_choice_help
+  - action: name_form
+  - active_loop: name_form
+- rule: Activate talk form
+  steps:
+  - intent: need_human_support_call
+  - action: callnumber_form
+  - active_loop: callnumber_form
+- rule: Submit help call form
+  condition:
+  - active_loop: callnumber_form
+  steps:
+  - action: callnumber_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_slots_callnumber_values
+- rule: Submit help form
+  condition:
+  - active_loop: name_form
+  steps:
+  - action: name_form
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: action_help_question
+  - active_loop: action_help_question

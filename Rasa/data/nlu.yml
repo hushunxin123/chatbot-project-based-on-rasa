@@ -1,0 +1,151 @@
+version: "3.1"
+nlu:
+- intent: greet
+  examples: |
+    - hey
+    - Hello
+    - hi
+    - hello there
+    - good morning
+    - good evening
+    - moin
+    - hey there
+    - let's go
+    - hey
+    - goodmorning
+    - goodevening
+    - good afternoon
+    - what can you do?
+
+- intent: inform
+  examples: |
+    - [1](choice)
+    - [2](choice)
+    - [3](choice)
+    - [4](choice)
+
+- intent: goodbye
+  examples: |
+    - good by
+    - cee you later
+    - good night
+    - bye
+    - goodbye
+    - have a nice day
+    - see you around
+    - bye bye
+    - see you later
+
+- intent: welcome
+  examples: |
+    - ok, well done
+    - ok,
+    - well done
+    - thanks
+
+- intent: deny
+  examples: |
+    - no
+    - never
+    - I don't think so
+    - don't like that
+    - no way
+    - not really
+    - nothing
+
+- intent: affirm
+  examples: |
+    - yes
+    - indeed
+    - of course
+    - that sounds good
+    - correct
+
+- intent: need_human_support
+  examples: |
+    - I need human support
+    - human support
+    - I need to talk to a human
+    - I want to talk to a human
+    - Can I talk to a human?
+
+- intent: need_human_support_call
+  examples: |
+    - Talk to a senior executive
+    - senior executive
+
+- intent: 4g_mobilepackage
+  examples: |
+    - the package about 4g
+    - 4g
+    - 4g mobile package
+
+- intent: 5g_mobilepackage
+  examples: |
+    - the package about 5g
+    - 5g
+    - 5g mobile package
+
+- intent: question_1
+  examples: |
+    - What are your store opening hours ?
+    - What are the operating hours of your store?
+    - store opening hours
+    - When are you open?
+    - Store hours please
+    - I need to know your store hours.
+
+- intent: question_2
+  examples: |
+    - What is your store address?
+    - store address?
+    - address
+    - Where are you located?
+    - Store address please
+    
+- intent: question_3
+  examples: |
+    - How do I get to your store
+    - get to your store
+    - Directions to your store
+    - How to reach your store
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+
+- intent: request_help
+  examples: |
+    - help
+    - help me
+    - can you help me?
+    - trouble
+    - I have some problem
+
+- intent: request_email
+  examples: |
+    - input you email
+    - email
+
+- intent: request_nothing
+  examples: |
+    - Nothing
+    - I don't know
+
+- intent: bot_challenge
+  examples: |
+    - are you a bot?
+    - are you a human?
+    - am I talking to a bot?
+    - am I talking to a human?
+    
+- intent: request_lost_my_sim
+  examples: |
+    - I've lost my sim card and I'd like to file a complaint.
+    - lost my sim.
+    - sim card
+    - I lost my sim card.
+
